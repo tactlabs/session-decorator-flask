@@ -14,6 +14,9 @@ app = Flask(__name__)
 SAMPLE_USERID = 1001
 SAMPLE_USERNAME = "raja"
 SAMPLE_PASSWORD = "raja"
+SESSION_PRE     = "se_"
+SESSION_POST    = "_ssyd"
+EMPTY           = ""
 
 @app.route('/')
 def get_base():
@@ -71,7 +74,7 @@ def get_user():
 def validate_user(username, password):
 
     if(username == SAMPLE_USERNAME and password == SAMPLE_PASSWORD):
-        return "se_"+str(SAMPLE_USERID) + "_ssyd"
+        return SESSION_PRE+str(SAMPLE_USERID) + SESSION_POST
 
     return None
 
@@ -80,8 +83,8 @@ def validate_sessionid(sid):
     if(sid is None):
         return False
 
-    sid = sid.replace('se_', '')
-    userid = sid.replace('_ssyd', '')
+    sid = sid.replace(SESSION_PRE, EMPTY)
+    userid = sid.replace(SESSION_POST, EMPTY)
 
     userid = int(userid)
 
